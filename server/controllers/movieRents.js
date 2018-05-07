@@ -50,27 +50,19 @@ class movieRentsController {
       .catch(err => errorResponse(err.message));
   }
 
-  // create(data) {
-  //   return this.Movies.findOne({ where: { id: data.movie_id } })
-  //     .then((movie) => {
-  //       return movie.getMovieCopies({ where: { available: true } })
-  //         .then((result) => {
-  //           const rent = {
-  //             movie_copy_id: result[0].id,
-  //             user_id: data.user_id,
-  //           };
-  //           return this.MovieRents.create(rent)
-  //             .then(rentResult => defaultResponse(rentResult))
-  //             .catch(err => errorResponse(err.message));
-  //         })
-  //         .catch(err => errorResponse(err.message));
-  //     })
-  //     .catch(err => errorResponse(err.message));
-  // }
-
-  update(data, params) {
-    return this.MovieRents.update(data, { where: params })
-      .then(result => defaultResponse(result))
+  returnMovie(data, params) {
+    return this.MovieRents.update({ returned: true }, { where: params })
+      .then((result) => {
+        return this.MovieCopies.update(
+          { available: true },
+          { where: { id: data.movie_copy_id } },
+        )
+          .then(resultCopy => defaultResponse({
+            rent_updated: result,
+            movie_copy_updated: resultCopy,
+          }))
+          .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
+      })
       .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
   }
 

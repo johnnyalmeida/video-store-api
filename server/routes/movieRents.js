@@ -30,16 +30,10 @@ export default (app) => {
         });
     })
     .put((req, res) => {
-      moviesRentsController.update(req.body, req.params)
+      moviesRentsController.returnMovie(req.body, req.params)
         .then((response) => {
           res.status(response.statusCode);
           res.json(response.data);
-        });
-    })
-    .delete((req, res) => {
-      moviesRentsController.destroy(req.params)
-        .then((response) => {
-          res.sendStatus(response.statusCode);
         });
     });
 };

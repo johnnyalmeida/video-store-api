@@ -132,19 +132,35 @@ describe('Routes movies/rent', () => {
 
   describe('Route PUT /movies/rent', () => {
     it('should update a movie rent', (done) => {
-      const updatedRent = {
-        id: 1,
-        movie_copy_id: 1,
-        user_id: 1,
-        returned: true,
+      const returnRent = {
+        movie_copy_id: 2,
       };
-      request
-        .put('/rents/1')
-        .set('Authorization', `bearer ${token}`)
-        .send(updatedRent)
-        .end((err, res) => {
-          expect(res.body).to.be.eql([1]);
-          done(err);
+
+      const newCopy = {
+        id: 2,
+        movie_id: 1,
+        available: false,
+      };
+
+      const newRent = {
+        id: 2,
+        movie_copy_id: 2,
+        user_id: 1,
+        returned: false,
+      };
+
+      MovieCopies.create(newCopy)
+        .then(() => MovieRents.create(newRent))
+        .then(() => {
+          request
+            .put('/rents/2')
+            .set('Authorization', `bearer ${token}`)
+            .send(returnRent)
+            .end((err, res) => {
+              expect(res.body.rent_updated).to.be.eql([1]);
+              expect(res.body.movie_copy_updated).to.be.eql([1]);
+              done(err);
+            });
         });
     });
   });
