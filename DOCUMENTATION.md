@@ -22,7 +22,7 @@ Create a user
 
 - Send:
 ```
-  body data: {
+  {
     name: 'string',
     email: 'string',
     password: 'string'
@@ -113,12 +113,14 @@ Return user active rents
 		
 - Return JSON
 ```
-	[{
-		id: 'integer' // Rent ID
-		'movie_copy_id': 'integer' // The movie copy ID
-		'user_id': 'integer' // User ID
-    'returned': 'boolean' // Rent returned status
-	}]
+	[
+    {
+      id: 'integer' // Rent ID
+      'movie_copy_id': 'integer' // The movie copy ID
+      'user_id': 'integer' // User ID
+      'returned': 'boolean' // Rent returned status
+	  }
+  ]
 ```
 
 
@@ -139,7 +141,7 @@ Create a new rent
     id: 'integer' // Rent ID
     movie_copy_id: 'integer' // Movie copy ID
     user_id: 'integer' // User ID
-		returned: 'boolean' // Rent returned status
+    returned: 'boolean' // Rent returned status
   }
 ```
 
