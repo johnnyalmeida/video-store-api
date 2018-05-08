@@ -19,7 +19,7 @@ The documentation is available in the `DOCUMENTATION.md` file in this repository
 - The database dump and the ER Model are available in the `_db` directory
 
 ### Tests
-Integration tests are available for this project, but first you'll need to create a test database, it should have the `test_` prefix in the name, like `test_video_store`.
+Integration tests are available for this project, but first you'll need to create a secondary database for tests only, it should have the same name as your main database but with the prefix `test_`, like `test_video_store`.
 
 After creating the test database, you just need to run the main test script: `npm run test`
 
