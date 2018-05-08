@@ -1,26 +1,39 @@
 import HttpStatus from 'http-status';
 import jwt from 'jwt-simple';
 
+/**
+ * Default success response callback
+ * @param {Obj} data - Response data
+ * @param {*} statusCode - Status code, default 200
+ */
 const defaultResponse = (data, statusCode = HttpStatus.OK) => ({
   data,
   statusCode,
 });
 
+/**
+ * Default error response callback
+ * @param {string} message - Error message
+ * @param {*} statusCode - Status code, default 400
+ */
 const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultResponse({
   error: message,
 }, statusCode);
 
+/**
+ * Manage user endpoints
+ */
 class UsersController {
   constructor(Users) {
     this.Users = Users;
   }
 
   /**
- * Parse user data from jwt.
- * @param {Obj} req - The request object.
- * @param {Obj} res - The response object.
- * @param {string} secretToken - The jwt secret salt.
- */
+   * Parse user data from jwt.
+   * @param {Obj} req - The request object
+   * @param {Obj} res - The response object
+   * @param {string} secretToken  - The jwt secret salt
+   */
   parseUser(req, res, secretToken) {
     // Validate auth headers
     if (req.headers && req.headers.authorization) {
@@ -52,9 +65,9 @@ class UsersController {
   }
 
   /**
- * Create a user.
- * @param {Obj} data - The user body data.
- */
+   * Create user.
+   * @param {Obj} data - The user data
+   */
   create(data) {
     return this.Users.create(data)
       .then(result => defaultResponse(result, HttpStatus.CREATED))

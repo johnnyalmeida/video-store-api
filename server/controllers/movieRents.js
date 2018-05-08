@@ -1,14 +1,27 @@
 import HttpStatus from 'http-status';
 
+/**
+ * Default success response callback
+ * @param {Obj} data - Response data
+ * @param {*} statusCode - Status code, default 200
+ */
 const defaultResponse = (data, statusCode = HttpStatus.OK) => ({
   data,
   statusCode,
 });
 
+/**
+ * Default error response callback
+ * @param {string} message - Error message
+ * @param {*} statusCode - Status code, default 400
+ */
 const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultResponse({
   error: message,
 }, statusCode);
 
+/**
+ * Manage movie rents endpoints
+ */
 class movieRentsController {
   constructor(models) {
     this.MovieRents = models.MovieRents;
@@ -17,13 +30,21 @@ class movieRentsController {
     this.copies = [];
   }
 
+  /**
+   * Get rents from a user.
+   */
   getByUser(params) {
     return this.MovieRents.findAll({ where: { user_id: params.user_id, returned: false } })
       .then(result => defaultResponse(result))
       .catch(err => errorResponse(err.message));
   }
 
+  /**
+   * Create a rent.
+   * @param {Obj} data - The rent data
+   */
   create(data) {
+    // Find the movie and then make sure it has an available copy, make it unavailable.
     return this.Movies.findOne({ where: { id: data.movie_id } })
       .then(movie => movie.getMovieCopies({ where: { available: true } })
         .then((copies) => { this.copies = copies; })
@@ -44,7 +65,12 @@ class movieRentsController {
       .catch(err => errorResponse(err.message));
   }
 
+  /**
+   * Update a rent status to returned.
+   * @param {Obj} data - The rent data
+   */
   returnMovie(data) {
+    // Update the movie rent status and then set movie copy available.
     return this.MovieRents.update({ returned: true }, { where: data })
       .then(result => this.MovieCopies.update(
         { available: true },
