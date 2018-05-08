@@ -58,7 +58,7 @@ Authenticate an user
 - Send: 
 ```
   {
-    email: 'string',
+    email: 'string'
     password: 'string'
   }
 ```
@@ -94,11 +94,11 @@ Return a movie by title if available
 
 - Return JSON: 
 ```
- 	{
- 		id: 'integer' // Movie ID
- 		title: 'integer' // Movie title
- 		director_id: // Movie director ID
- 	}
+  {
+    id: 'integer' // Movie ID
+    title: 'integer' // Movie title
+    director_id: // Movie director ID
+  }
 ```
 
 ## Rents
@@ -127,9 +127,9 @@ Create a new rent
 - Send
 ```
   {
-		movie_id: 'integer'
-		user_id: 'integer'
-	}
+    movie_id: 'integer'
+    user_id: 'integer'
+  }
 ```
 
 - Return created entity JSON
