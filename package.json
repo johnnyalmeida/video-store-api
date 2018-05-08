@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && npm run test-integration",
     "test-integration": "NODE_TEST_ENV=true mocha --opts test/integration/mocha.opts test/integration/**/*.js",
-    "start": "babel-node ./index.js",
+    "start": "babel-node ./server/index.js",
     "lint": "eslint '**/*js'",
     "lint:fix": "eslint '**/*js' --fix"
   },
