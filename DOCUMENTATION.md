@@ -113,16 +113,13 @@ Return user active rents
 		
 - Return JSON
 ```
-	[
-    {
-      id: 'integer' // Rent ID
-      'movie_copy_id': 'integer' // The movie copy ID
-      'user_id': 'integer' // User ID
-      'returned': 'boolean' // Rent returned status
-	  }
-  ]
+  [{
+    id: 'integer' // Rent ID
+    movie_copy_id: 'integer' // Movie copy title
+    user_id: // User ID
+    returned: 'boolean' // Rent returned status
+  }]
 ```
-
 
 ### POST `/rents/create`
 Create a new rent
