@@ -21,6 +21,7 @@ app.use(auth.initialize());
 
 app.auth = auth;
 
+app.set('url', 'http://localhost:7000');
 app.set('port', 7000);
 
 moviesRouter(app);

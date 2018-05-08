@@ -30,7 +30,7 @@ export default (app) => {
         });
     })
     .put((req, res) => {
-      moviesRentsController.returnMovie(req.body, req.params)
+      moviesRentsController.returnMovie(req.body, req.params, req.headers)
         .then((response) => {
           res.status(response.statusCode);
           res.json(response.data);

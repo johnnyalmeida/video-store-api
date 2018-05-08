@@ -11,4 +11,10 @@ export default (app) => {
           res.json(response.data);
         });
     });
+
+  app.route('/users/parse')
+    .all(app.auth.authenticate())
+    .post((req, res) => {
+      usersController.parseUser(req, res, app.config.jwtSecret);
+    });
 };
