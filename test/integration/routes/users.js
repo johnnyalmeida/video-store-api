@@ -36,7 +36,6 @@ describe('Route Users', () => {
         email: 'new@mail.com',
         password: 'testing',
       };
-
       request
         .post('/users')
         .send(newUser)
@@ -50,12 +49,13 @@ describe('Route Users', () => {
   });
 
   describe('Route POST /users/parse', () => {
-    it('should return user id', (done) => {
+    it('should return user data', (done) => {
       request
         .post('/users/parse')
         .set('Authorization', `bearer ${token}`)
         .end((err, res) => {
           expect(res.body.id).to.be.eql(defaultUser.id);
+          expect(res.body.name).to.be.eql(defaultUser.name);
           done(err);
         });
     });

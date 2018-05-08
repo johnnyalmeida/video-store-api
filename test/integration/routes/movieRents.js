@@ -134,6 +134,7 @@ describe('Routes movies/rent', () => {
     it('should update a movie rent', (done) => {
       const returnRent = {
         movie_copy_id: 2,
+        user_id: 1,
       };
 
       const newCopy = {
@@ -153,7 +154,7 @@ describe('Routes movies/rent', () => {
         .then(() => MovieRents.create(newRent))
         .then(() => {
           request
-            .put('/rents/return/2')
+            .put('/rents/return')
             .set('Authorization', `bearer ${token}`)
             .send(returnRent)
             .end((err, res) => {

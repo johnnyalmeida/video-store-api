@@ -50,8 +50,8 @@ class movieRentsController {
       .catch(err => errorResponse(err.message));
   }
 
-  returnMovie(data, params) {
-    return this.MovieRents.update({ returned: true }, { where: params })
+  returnMovie(data) {
+    return this.MovieRents.update({ returned: true }, { where: data })
       .then((result) => {
         return this.MovieCopies.update(
           { available: true },

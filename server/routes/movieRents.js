@@ -33,7 +33,7 @@ export default (app) => {
         });
     });
 
-  app.route('/rents/return/:id')
+  app.route('/rents/return')
     .all(app.auth.authenticate())
     .put((req, res) => {
       moviesRentsController.returnMovie(req.body, req.params, req.headers)
