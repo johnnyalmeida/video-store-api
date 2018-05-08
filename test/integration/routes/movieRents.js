@@ -81,31 +81,16 @@ describe('Routes movies/rent', () => {
       });
   });
 
-  describe('Route GET /rents', () => {
-    it('should return a list of movie rents', (done) => {
-      request
-        .get('/rents')
-        .set('Authorization', `bearer ${token}`)
-        .end((err, res) => {
-          expect(res.body[0].user_id).to.be.eql(defaultRent.user_id);
-          expect(res.body[0].returned).to.be.eql(defaultRent.returned);
-          expect(res.body[0].movie_copy_id).to.be.eql(defaultRent.movie_copy_id);
-          expect(res.body[0].id).to.be.eql(defaultRent.id);
-          done(err);
-        });
-    });
-  });
-
-  describe('Route GET /rents/{id}', () => {
-    it('should return a single movie rent', (done) => {
+  describe('Route GET /rents/{user_id}', () => {
+    it('should return all rents from a user', (done) => {
       request
         .get('/rents/1')
         .set('Authorization', `bearer ${token}`)
         .end((err, res) => {
-          expect(res.body.user_id).to.be.eql(defaultRent.user_id);
-          expect(res.body.movie_copy_id).to.be.eql(defaultRent.movie_copy_id);
-          expect(res.body.returned).to.be.eql(defaultRent.returned);
-          expect(res.body.id).to.be.eql(defaultRent.id);
+          expect(res.body[0].user_id).to.be.eql(defaultRent.user_id);
+          expect(res.body[0].movie_copy_id).to.be.eql(defaultRent.movie_copy_id);
+          expect(res.body[0].returned).to.be.eql(defaultRent.returned);
+          expect(res.body[0].id).to.be.eql(defaultRent.id);
           done(err);
         });
     });

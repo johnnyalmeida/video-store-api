@@ -17,14 +17,8 @@ class movieRentsController {
     this.copies = [];
   }
 
-  getAll() {
-    return this.MovieRents.findAll({})
-      .then(result => defaultResponse(result))
-      .catch(err => errorResponse(err.message));
-  }
-
-  getById(params) {
-    return this.MovieRents.findOne({ where: params })
+  getByUser(params) {
+    return this.MovieRents.findAll({ where: { user_id: params.user_id, returned: false } })
       .then(result => defaultResponse(result))
       .catch(err => errorResponse(err.message));
   }
@@ -52,23 +46,15 @@ class movieRentsController {
 
   returnMovie(data) {
     return this.MovieRents.update({ returned: true }, { where: data })
-      .then((result) => {
-        return this.MovieCopies.update(
-          { available: true },
-          { where: { id: data.movie_copy_id } },
-        )
-          .then(resultCopy => defaultResponse({
-            rent_updated: result,
-            movie_copy_updated: resultCopy,
-          }))
-          .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
-      })
-      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
-  }
-
-  destroy(params) {
-    return this.MovieRents.destroy({ where: params })
-      .then(() => defaultResponse({}, HttpStatus.NO_CONTENT))
+      .then(result => this.MovieCopies.update(
+        { available: true },
+        { where: { id: data.movie_copy_id } },
+      )
+        .then(resultCopy => defaultResponse({
+          rent_updated: result,
+          movie_copy_updated: resultCopy,
+        }))
+        .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY)))
       .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
   }
 }

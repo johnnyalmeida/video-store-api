@@ -1,3 +1,18 @@
+# AUTHENTICATE
+Set up authorization:
+
+- Login 	
+```
+Set header authorization with the token receveid from the `/auth` endpoint :
+`bearer {token}`
+```
+
+- Logout 	
+```
+Set header authorization with the token receveid from the `/auth` endpoint :
+`bearer {token}`
+```
+
 # ROUTES
 
 ## Users
@@ -48,9 +63,11 @@ Authenticate an user
   }
 ```
 
-- Return	STRING
+- Return	JSON
 ```
-{token} // The Authentication token
+  {
+    token: 'string' // The Authentication token
+  } 
 ```
 
 ## Movies
@@ -100,7 +117,7 @@ Return user active rents
 		id: 'integer' // Rent ID
 		'movie_copy_id': 'integer' // The movie copy ID
 		'user_id': 'integer' // User ID
-		'returned': 'boolean' // Rent returned status
+    'returned': 'boolean' // Rent returned status
 	}]
 ```
 
@@ -111,7 +128,7 @@ Create a new rent
 - Send
 ```
   {
-		movie_copy_id: 'integer',
+		movie_id: 'integer',
 		user_id: 'integer'
 	}
 ```
@@ -122,7 +139,7 @@ Create a new rent
     id: 'integer' // Rent ID
     movie_copy_id: 'integer' // Movie copy ID
     user_id: 'integer' // User ID
-		'returned': 'boolean' // Rent returned status
+		returned: 'boolean' // Rent returned status
   }
 ```
 
@@ -148,10 +165,3 @@ Update rent status to returned
   movie_copy_updated: 'array' // Items update in Movie Copies
 ```
 
-# AUTHENTICATE
-Set up authorization:
-  	
-```
-Set header authorization with the token receveid from the `/auth` endpoint :
-`bearer {token}`
-```

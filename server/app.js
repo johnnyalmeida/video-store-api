@@ -21,7 +21,7 @@ app.use(auth.initialize());
 
 app.auth = auth;
 
-app.set('port', 7000);
+app.set('port', 3000);
 
 moviesRouter(app);
 usersRouter(app);
