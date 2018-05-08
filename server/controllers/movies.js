@@ -10,12 +10,21 @@ const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultR
 }, statusCode);
 
 class moviesController {
-  constructor(Movies) {
-    this.Movies = Movies;
+  constructor(models) {
+    this.Movies = models.Movies;
+    this.MovieCopies = models.MovieCopies;
   }
 
   getAll() {
-    return this.Movies.findAll({})
+    return this.Movies.findAll({
+      where: {},
+      include: [{
+        model: this.MovieCopies,
+        where: {
+          available: true,
+        },
+      }],
+    })
       .then(result => defaultResponse(result))
       .catch(err => errorResponse(err.message));
   }
@@ -24,24 +33,6 @@ class moviesController {
     return this.Movies.findOne({ where: params })
       .then(result => defaultResponse(result))
       .catch(err => errorResponse(err.message));
-  }
-
-  create(data) {
-    return this.Movies.create(data)
-      .then(result => defaultResponse(result, HttpStatus.CREATED))
-      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
-  }
-
-  update(data, params) {
-    return this.Movies.update(data, { where: params })
-      .then(result => defaultResponse(result))
-      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
-  }
-
-  destroy(params) {
-    return this.Movies.destroy({ where: params })
-      .then(() => defaultResponse({}, HttpStatus.NO_CONTENT))
-      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
   }
 }
 

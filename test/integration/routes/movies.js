@@ -11,6 +11,11 @@ describe('Routes movies', () => {
     title: 'Default movie',
     director_id: 1,
   };
+  const defaultMovieCopy = {
+    id: 1,
+    movie_id: 1,
+    available: true,
+  };
   const defaultDirector = {
     id: 1,
     name: 'Default Director',
@@ -28,6 +33,7 @@ describe('Routes movies', () => {
                   .destroy({ where: { id: 1 } })
                   .then(() => Directors.create(defaultDirector))
                   .then(() => Movies.create(defaultMovie))
+                  .then(() => MovieCopies.create(defaultMovieCopy))
                   .then(() => {
                     done();
                   });
@@ -49,33 +55,14 @@ describe('Routes movies', () => {
     });
   });
 
-  describe('Route GET /movies/S', () => {
+  describe('Route GET /movies/{title}', () => {
     it('should return a single movie', (done) => {
       request
-        .get('/movies/Default%20movie')
+        .get(`/movies/${defaultMovie.title}`)
         .end((err, res) => {
-          expect(res.body.name).to.be.eql(defaultMovie.name);
-          expect(res.body.description).to.be.eql(defaultMovie.description);
+          expect(res.body.title).to.be.eql(defaultMovie.title);
+          expect(res.body.director_id).to.be.eql(defaultMovie.director_id);
           expect(res.body.id).to.be.eql(defaultMovie.id);
-          done(err);
-        });
-    });
-  });
-
-  describe('Route POST /movies', () => {
-    it('should create a movie', (done) => {
-      const newMovie = {
-        id: 2,
-        title: 'newMovie',
-        director_id: 1,
-      };
-      request
-        .post('/movies')
-        .send(newMovie)
-        .end((err, res) => {
-          expect(res.body.title).to.be.eql(newMovie.title);
-          expect(res.body.director_id).to.be.eql(newMovie.director_id);
-          expect(res.body.id).to.be.eql(newMovie.id);
           done(err);
         });
     });

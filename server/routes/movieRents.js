@@ -11,7 +11,10 @@ export default (app) => {
           res.status(response.statusCode);
           res.json(response.data);
         });
-    })
+    });
+
+  app.route('/rents/create')
+    .all(app.auth.authenticate())
     .post((req, res) => {
       moviesRentsController.create(req.body)
         .then((response) => {
@@ -28,7 +31,10 @@ export default (app) => {
           res.status(response.statusCode);
           res.json(response.data);
         });
-    })
+    });
+
+  app.route('/rents/return/:id')
+    .all(app.auth.authenticate())
     .put((req, res) => {
       moviesRentsController.returnMovie(req.body, req.params, req.headers)
         .then((response) => {

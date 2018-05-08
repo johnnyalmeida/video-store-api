@@ -111,14 +111,14 @@ describe('Routes movies/rent', () => {
     });
   });
 
-  describe('Route POST /rents', () => {
+  describe('Route POST /rents/create', () => {
     it('should create a movie rent', (done) => {
       const newRent = {
         movie_id: 1,
         user_id: 1,
       };
       request
-        .post('/rents')
+        .post('/rents/create')
         .set('Authorization', `bearer ${token}`)
         .send(newRent)
         .end((err, res) => {
@@ -153,7 +153,7 @@ describe('Routes movies/rent', () => {
         .then(() => MovieRents.create(newRent))
         .then(() => {
           request
-            .put('/rents/2')
+            .put('/rents/return/2')
             .set('Authorization', `bearer ${token}`)
             .send(returnRent)
             .end((err, res) => {
