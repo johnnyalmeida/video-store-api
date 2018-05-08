@@ -23,8 +23,8 @@ Create a user
 - Send:
 ```
   {
-    name: 'string',
-    email: 'string',
+    name: 'string'
+    email: 'string'
     password: 'string'
   }
 ```
@@ -127,7 +127,7 @@ Create a new rent
 - Send
 ```
   {
-		movie_id: 'integer',
+		movie_id: 'integer'
 		user_id: 'integer'
 	}
 ```
