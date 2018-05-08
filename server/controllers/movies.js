@@ -30,7 +30,15 @@ class moviesController {
   }
 
   getByTitle(params) {
-    return this.Movies.findOne({ where: params })
+    return this.Movies.findOne({
+      where: params,
+      include: [{
+        model: this.MovieCopies,
+        where: {
+          available: true,
+        },
+      }],
+    })
       .then(result => defaultResponse(result))
       .catch(err => errorResponse(err.message));
   }
