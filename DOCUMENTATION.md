@@ -9,8 +9,8 @@ Set header authorization with the token receveid from the `/auth` endpoint :
 
 - Logout 	
 ```
-Set header authorization with the token receveid from the `/auth` endpoint :
-`bearer {token}`
+The authentication is based in JWT, so the logout should be on the client side by removing the token from the requests
+The token expires by default after 60 minutes
 ```
 
 # ROUTES
