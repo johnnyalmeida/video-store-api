@@ -1,8 +1,8 @@
-#ROUTES
+# ROUTES
 
 ## Users
 
-### POST /user
+### POST `/user`
 Create a user
 
 - Send:
@@ -24,7 +24,7 @@ Create a user
 }
 ```
 
-### GET /user/parse
+### GET `/user/parse`
 Return user data
 
 - Return JSON: 
@@ -37,7 +37,7 @@ Return user data
 
 ## Auth 
  
-### POST /auth 
+### POST `/auth`
 Authenticate an user
 
 - Send: 
@@ -53,13 +53,9 @@ Authenticate an user
 {token} // The Authentication token
 ```
 
- 	* Set up authorization:
-  	Set header authorization with the token receveid from the endpoint above: 
-  	 `bearer {token}`
-
 ## Movies
 
-### GET /movies
+### GET `/movies`
 Return all available movies
 
 Return JSON
@@ -71,7 +67,7 @@ Return JSON
   }]
 ```
 
-### GET /movies/{title}
+### GET `/movies/{title}`
 Return a movie by title if available
 
 - Param:
@@ -90,7 +86,7 @@ Return a movie by title if available
 
 ## Rents
 
-### GET /rents/{id}
+### GET `/rents/{id}`
 Return user active rents
 
 - Param:
@@ -109,7 +105,7 @@ Return user active rents
 ```
 
 
-### POST /rents/create
+### POST `/rents/create`
 Create a new rent
 
 - Send
@@ -130,7 +126,7 @@ Create a new rent
   }
 ```
 
-### PUT /rents/return/{id}
+### PUT `/rents/return/{id}`
 Update rent status to returned
 
 - Params		
@@ -150,4 +146,12 @@ Update rent status to returned
 ```
   rent_updated: 'array' // Items updated in  Rents
   movie_copy_updated: 'array' // Items update in Movie Copies
+```
+
+# AUTHENTICATE
+Set up authorization:
+  	
+```
+Set header authorization with the token receveid from the `/auth` endpoint :
+`bearer {token}`
 ```
