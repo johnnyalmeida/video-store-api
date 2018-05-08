@@ -13,6 +13,7 @@ The documentation is available in the `DOCUMENTATION.md` file in this repository
 - Open de directory: `cd video-store-api`
 - Install all dependecies: `npm install`
 - Start the server: `npm run start`
+- The server will be availabel at `http://localhost:3000`
 
 ### Configutation
 - The database credentials and host are located in the `server/config/config.js` file.
